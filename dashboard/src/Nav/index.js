@@ -6,9 +6,10 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-
-import Login from "../components/loginpage"
-
+import SideBarHOC from "../HOC/SideBarHOC/SideBarHOC";
+import Login from "../components/loginpage";
+import Clients from "../components/Clients";
+import Onboarding from "../components/Onboarding";
 
 function Navs() {
   return (
@@ -17,13 +18,22 @@ function Navs() {
         <Routes>
           <Route path="/" element={<Login />} />
 
-          {/* <Route
-            path="/candidate/auth"
-            element={<AuthPage type="candidate" />}
-          /> */}
-
-          
-          
+          <Route
+            path="/clients"
+            element={
+              <SideBarHOC>
+                <Clients />
+              </SideBarHOC>
+            }
+          />
+          <Route
+            path="/onboarding"
+            element={
+              <SideBarHOC>
+                <Onboarding />
+              </SideBarHOC>
+            }
+          />
         </Routes>
       </Router>
     </div>

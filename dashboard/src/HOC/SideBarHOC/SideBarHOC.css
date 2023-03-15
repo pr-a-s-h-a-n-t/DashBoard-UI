@@ -1,0 +1,17 @@
+.side_bar_container {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  padding: 0px;
+
+  border: 2px solid rebeccapurple;
+  background-color: darkviolet !important;
+  width: 336px;
+  height: 1080px;
+  
+
+   
+  /* Card Shadow/01 */
+
+  box-shadow: 0px 1px 5px rgba(3, 0, 55, 0.08);
+}
