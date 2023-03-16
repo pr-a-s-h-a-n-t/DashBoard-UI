@@ -1,0 +1,10 @@
+.top_bar_container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 20px;
+border: 2px solid greenyellow;
+  width: 1544px;
+  height: 49px;
+}
