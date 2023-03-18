@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import "./login.css";
-import login_page_side from "../../assets/login_page_side.png";
+import workplace from "../../assets/workplace.png";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
@@ -105,13 +105,13 @@ function Index() {
             {" "}
             <p> Privacy Policy</p>{" "}
           </span>
-          <Typography>© Punctualiti 2022. All rights reserved</Typography>
+          <Typography>© 2022. All rights reserved</Typography>
         </Grid>
       </Grid>
 
       <Grid item sm={12} md={6}>
         <div className="_img_container">
-          <img src={login_page_side} alt="" />
+          <img src={workplace} alt="" />
         </div>
         <Typography>360° Solution for Asset Management</Typography>
         <Typography>
