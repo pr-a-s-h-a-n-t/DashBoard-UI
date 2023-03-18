@@ -19,7 +19,7 @@ function Navs() {
           <Route path="/" element={<Login />} />
 
           <Route
-            path="/clients"
+            path="/admin_panel/client_master/client_list-more"
             element={
               <SideBarHOC>
                 <Clients />

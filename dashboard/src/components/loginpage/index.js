@@ -2,44 +2,74 @@ import React, { useState } from "react";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import "./login.css";
 import login_page_side from "../../assets/login_page_side.png";
+import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 function Index() {
+  const navigate = useNavigate();
   const [userCredential, setUserCredential] = useState({
     email: "",
     password: "",
   });
+ 
+  const [accessToken, setAccessToken] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
+    console.log(userCredential, ",...........")
     e.preventDefault();
 
-    fetch("https://reqres.in/api/login", {
+    const dta = await fetch("https://reqres.in/api/login", {
       // Adding method type
       method: "POST",
-
-      // Adding body or contents to send
       body: JSON.stringify(userCredential),
-
-      // Adding headers to the request
       headers: {
-        "Content-type": "application/json; charset=UTF-8",
+        "Content-type": "application/json",
       },
-    })
-      // Converting to JSON
-      .then((response) => response.json())
 
-      // Displaying results to console
-      .then((json) => console.log(json));
-  };
-
-  const handleUserInput = (event) => {
-    const { value, name } = event.target;
-    setUserCredential({
-      ...userCredential,
-      [name]: value,
     });
+    let serverResponse = await dta.json();
 
-    // console.log(value, name, "value ----- name ");
+      
+
+    console.log(serverResponse.token, "Successfully" );
+
+    if (serverResponse.token !== "" && dta.status === 200) {
+      toast("🦄 login successful!", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+      setAccessToken(serverResponse.token);
+      navigate("/admin_panel/client_master/client_list-more");
+    } else if (!serverResponse.token || dta.status === 400) {
+      toast.error("error: Invalid Credential", {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    }
   };
+
+  function handleUserInput(e) {
+    if (e.target.name === "email" ) {
+      console.log(e.target.value, "Email--------");
+      userCredential.email = e.target.value;
+    } else if (e.target.name === "password") {
+      console.log(e.target.value, "password--------");
+      userCredential.password = e.target.value;
+    }
+  }
 
   return (
     <Grid className="_login_container" container>
@@ -52,15 +82,15 @@ function Index() {
           {/* <form onSubmit={handleSubmit}> */}
           <input
             type="text"
-            onChange={(e) => {
-              handleUserInput(e);
-            }}
+            name="email"
+            required
+            onChange={(e) => handleUserInput(e)}
           />
           <input
             type="password"
-            onChange={(e) => {
-              handleUserInput(e);
-            }}
+            name="password"
+            required
+            onChange={(e) => handleUserInput(e)}
           />
           <TextField type="submit" />
           <Typography>Forgot Password?</Typography>
