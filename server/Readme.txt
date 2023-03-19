@@ -1,0 +1,1 @@
+This is txt file. try to read me using node.js file system module(fs).appendingStrthis is line is going to appended in existing file
