@@ -2,28 +2,44 @@ const url = require("url");
 const http = require("http");
 const fs = require("fs");
 
- http.createServer((req, res) => {
-  //request//
-  //index//
-  //about//
-  //services//
+http
+  .createServer((req, res) => {
+    //request//
+    //index//
+    //about//
+    //services//
 
-  const path = req.url;
-  if (path == "/") {
-    console.log("home page");
+    const path = req.url;
+    if (path == "/") {
+      console.log("home page  ");
 
-    //response me
-    res.writeHead(200, {
-      "Content-type": "text/html",
-    });
+      try {
+        res.writeHead(200, {
+          "content-type": "text/html",
+        });
 
-    const fileContent = fs.readFileSync(".\client\home.html");
-    res.write(fileContent);
-    res.end();
-  } else if (path == "/about") {
-    console.log("about page");
-  } else if (path == "/services") {
-    console.log("service page");
-  }
-})
- .listen(6000);
+        fs.readFile("pages/home.html", (err, data) => {
+          if (err) {
+            console.log("wait there is a problem");
+            console.log(err);
+          } else {
+            console.log(data); //data wil come in buffer
+            return res.write(data.toString());
+            // console.log(data.toString()); //convert it into a string
+          }
+        });
+
+        // res.write(fileContent);
+
+        // res.end();
+      } catch (e) {
+        console.log(e, "error");
+      }
+    } else if (path == "/services") {
+      console.log("services page ");
+    } else if (path == "/about") {
+      console.log("about page");
+      res.write("./services/about");
+    }
+  })
+  .listen(8082);
